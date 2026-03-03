@@ -27,13 +27,23 @@ const PALETTE1: [Color; 5] = [
     Color { r: 0, g: 128, b: 255 },  // Tech Blue
     Color { r: 255, g: 128, b: 0 },  // Neon Orange
 ];
-
+const PALETTE2: [Color; 4] = [
+    Color { r: 253, g: 242, b: 154 },  // Pale Yellow 
+    Color { r: 251, g: 145, b: 143 },  // Soft Pink 
+    Color { r: 204, g: 202, b: 246 },  // Lavender
+    Color { r: 255, g: 195, b: 157 },  // Peach 
+];
 pub fn get_color(iterations: f64, max_iterations: f64, palette_id: u32) -> (u8, u8, u8) {
     if iterations >= max_iterations {
         return (0, 0, 0);
     }
 
-    let palette = if palette_id == 0 { &PALETTE0 } else { &PALETTE1 };
+    let palette = match palette_id{
+        0 => &PALETTE0,
+        1 => &PALETTE1,
+        _ => &PALETTE2,
+    };
+    
     let n = palette.len() as f64;
     let normalized = iterations / max_iterations;
     let scaled = normalized * (n - 1.0);

@@ -33,21 +33,25 @@ const PALETTE2: [Color; 4] = [
     Color { r: 204, g: 202, b: 246 },  // Lavender
     Color { r: 255, g: 195, b: 157 },  // Peach 
 ];
+
 pub fn get_color(iterations: f64, max_iterations: f64, palette_id: u32) -> (u8, u8, u8) {
     if iterations >= max_iterations {
         return (0, 0, 0);
     }
 
-    let palette = match palette_id{
+    // Select palette based on id using match
+    let palette = match palette_id {
         0 => &PALETTE0,
         1 => &PALETTE1,
-        _ => &PALETTE2,
+        2 => &PALETTE2,
+        _ => &PALETTE0, // fallback to default
     };
-    
+
+    // Interpolation logic
     let n = palette.len() as f64;
     let normalized = iterations / max_iterations;
     let scaled = normalized * (n - 1.0);
-    
+
     let idx1 = scaled.floor() as usize;
     let idx2 = (idx1 + 1).min(palette.len() - 1);
     let t = scaled - scaled.floor();
@@ -61,6 +65,7 @@ pub fn get_color(iterations: f64, max_iterations: f64, palette_id: u32) -> (u8, 
         (c1.b as f64 * (1.0 - t) + c2.b as f64 * t) as u8,
     )
 }
+
 
 #[wasm_bindgen(js_name = generate_fractal)]
 pub fn generate_fractal(

@@ -34,22 +34,22 @@ const PALETTE2: [Color; 4] = [
     Color { r: 255, g: 195, b: 157 },  // Peach 
 ];
 
-
 pub fn get_color(iterations: f64, max_iterations: f64, palette_id: u32) -> (u8, u8, u8) {
     if iterations >= max_iterations {
         return (0, 0, 0);
     }
 
-     let palette = match id {
-        0 => PALETTE0,
-        1 => PALETTE1,
-        2 => PALETTE2,
+    let palette = match palette_id {
+        0 => &PALETTE0,
+        1 => &PALETTE1,
+        2 => &PALETTE2,
+        _ => &PALETTE0, // or pick a default
     };
-    
+
     let n = palette.len() as f64;
     let normalized = iterations / max_iterations;
     let scaled = normalized * (n - 1.0);
-    
+
     let idx1 = scaled.floor() as usize;
     let idx2 = (idx1 + 1).min(palette.len() - 1);
     let t = scaled - scaled.floor();

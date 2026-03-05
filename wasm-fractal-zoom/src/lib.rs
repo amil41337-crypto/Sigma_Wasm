@@ -34,7 +34,6 @@ const PALETTE2: [Color; 4] = [
     Color { r: 255, g: 195, b: 157 },  // Peach 
 ];
 
-Industrial Coding 
 
 pub fn get_color(iterations: f64, max_iterations: f64, palette_id: u32) -> (u8, u8, u8) {
     if iterations >= max_iterations {

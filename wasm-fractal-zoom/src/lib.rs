@@ -48,10 +48,10 @@ pub fn get_color(iterations: f64, max_iterations: f64, palette_id: u32) -> (u8, 
     };
 
     let palette = match palette_id{
-        0 => &PALETTE0.as_slise(),
-        1 => &PALETTE1.as_slise(),
-        2 => &PALETTE2.as_slise(),
-        _ => &PALETTE0.as_slise(),
+        0 => PALETTE0.as_slise(),
+        1 => PALETTE1.as_slise(),
+        2 => PALETTE2.as_slise(),
+        _ => PALETTE0.as_slise(),
     };
         
     

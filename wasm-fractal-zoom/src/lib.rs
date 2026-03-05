@@ -15,23 +15,24 @@ struct Color {
 const PALETTE0: [Color; 5] = [
     Color { r: 0, g: 255, b: 255 },   // Cyan
     Color { r: 255, g: 0, b: 255 },   // Magenta
-    Color { r: 128, g: 0, b: 255 },  // Purple
-    Color { r: 0, g: 128, b: 255 },  // Blue
+    Color { r: 128, g: 0, b: 255 },   // Purple
+    Color { r: 0, g: 128, b: 255 },   // Blue
     Color { r: 255, g: 255, b: 0 },   // Yellow
 ];
 
 const PALETTE1: [Color; 5] = [
-    Color { r: 255, g: 0, b: 128 },  // Hot Pink
-    Color { r: 0, g: 255, b: 128 },  // Electric Green
-    Color { r: 128, g: 0, b: 255 },  // Deep Purple
-    Color { r: 0, g: 128, b: 255 },  // Tech Blue
-    Color { r: 255, g: 128, b: 0 },  // Neon Orange
+    Color { r: 255, g: 0, b: 128 },   // Hot Pink
+    Color { r: 0, g: 255, b: 128 },   // Electric Green
+    Color { r: 128, g: 0, b: 255 },   // Deep Purple
+    Color { r: 0, g: 128, b: 255 },   // Tech Blue
+    Color { r: 255, g: 128, b: 0 },   // Neon Orange
 ];
+
 const PALETTE2: [Color; 4] = [
-    Color { r: 253, g: 242, b: 154 },  // Pale Yellow 
-    Color { r: 251, g: 145, b: 143 },  // Soft Pink 
-    Color { r: 204, g: 202, b: 246 },  // Lavender
-    Color { r: 255, g: 195, b: 157 },  // Peach 
+    Color { r: 253, g: 242, b: 154 }, // Pale Yellow 
+    Color { r: 251, g: 145, b: 143 }, // Soft Pink 
+    Color { r: 204, g: 202, b: 246 }, // Lavender
+    Color { r: 255, g: 195, b: 157 }, // Peach 
 ];
 
 pub fn get_color(iterations: f64, max_iterations: f64, palette_id: u32) -> (u8, u8, u8) {
@@ -39,11 +40,11 @@ pub fn get_color(iterations: f64, max_iterations: f64, palette_id: u32) -> (u8, 
         return (0, 0, 0);
     }
 
-    let palette = match palette_id {
+    let palette: &[Color] = match palette_id {
         0 => &PALETTE0,
         1 => &PALETTE1,
         2 => &PALETTE2,
-        _ => &PALETTE0, // or pick a default
+        _ => &PALETTE0,
     };
 
     let n = palette.len() as f64;
@@ -63,9 +64,6 @@ pub fn get_color(iterations: f64, max_iterations: f64, palette_id: u32) -> (u8, 
         (c1.b as f64 * (1.0 - t) + c2.b as f64 * t) as u8,
     )
 }
-
-
-
 
 #[wasm_bindgen(js_name = generate_fractal)]
 pub fn generate_fractal(

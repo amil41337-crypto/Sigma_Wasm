@@ -36,30 +36,21 @@ const PALETTE2: [Color; 4] = [
 
 Industrial Coding 
 
-pub fn get_color(iterations: f64, max_iterations: f64, palette_id: u32) -> (u8, u8, u8) {
-    if iterations >= max_iterations {
-        return (0, 0, 0);
-    }
-
-    let palette = if palette_id == 0 { &PALETTE0 } else { &PALETTE1 };
+pub fn get_flat_palette(id: u32) -> Vec<f32> {
+    let palette = match id {
+        0 => PALETTE0,
+        1 => PALETTE1,
+        _ => PALETTE2,
     };
-    
-    let n = palette.len() as f64;
-    let normalized = iterations / max_iterations;
-    let scaled = normalized * (n - 1.0);
-    
-    let idx1 = scaled.floor() as usize;
-    let idx2 = (idx1 + 1).min(palette.len() - 1);
-    let t = scaled - scaled.floor();
 
-    let c1 = &palette[idx1];
-    let c2 = &palette[idx2];
-
-    (
-        (c1.r as f64 * (1.0 - t) + c2.r as f64 * t) as u8,
-        (c1.g as f64 * (1.0 - t) + c2.g as f64 * t) as u8,
-        (c1.b as f64 * (1.0 - t) + c2.b as f64 * t) as u8,
-    )
+    let mut flat = Vec::with_capacity(palette.len() * 4); // Use float4 alignment for WGSL
+    for color in palette.iter() {
+        flat.push(color.r);
+        flat.push(color.g);
+        flat.push(color.b);
+        flat.push(1.0); // Alpha/Padding
+    }
+    flat
 }
 
 

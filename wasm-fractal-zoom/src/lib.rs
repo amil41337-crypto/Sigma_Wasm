@@ -15,17 +15,17 @@ struct Color {
 const PALETTE0: [Color; 5] = [
     Color { r: 0, g: 255, b: 255 },   // Cyan
     Color { r: 255, g: 0, b: 255 },   // Magenta
-    Color { r: 128, g: 0, b: 255 },   // Purple
-    Color { r: 0, g: 128, b: 255 },   // Blue
+    Color { r: 128, g: 0, b: 255 },  // Purple
+    Color { r: 0, g: 128, b: 255 },  // Blue
     Color { r: 255, g: 255, b: 0 },   // Yellow
 ];
 
 const PALETTE1: [Color; 5] = [
-    Color { r: 255, g: 0, b: 128 },   // Hot Pink
-    Color { r: 0, g: 255, b: 128 },   // Electric Green
-    Color { r: 128, g: 0, b: 255 },   // Deep Purple
-    Color { r: 0, g: 128, b: 255 },   // Tech Blue
-    Color { r: 255, g: 128, b: 0 },   // Neon Orange
+    Color { r: 255, g: 0, b: 128 },  // Hot Pink
+    Color { r: 0, g: 255, b: 128 },  // Electric Green
+    Color { r: 128, g: 0, b: 255 },  // Deep Purple
+    Color { r: 0, g: 128, b: 255 },  // Tech Blue
+    Color { r: 255, g: 128, b: 0 },  // Neon Orange
 ];
 
 const PALETTE2: [Color; 4] = [
@@ -40,13 +40,13 @@ pub fn get_color(iterations: f64, max_iterations: f64, palette_id: u32) -> (u8, 
         return (0, 0, 0);
     }
 
-    let palette = match palette_id{
-        0 => PALETTE0.as_slise(),
-        1 => PALETTE1.as_slise(),
-        2 => PALETTE2.as_slise(),
-        _ => PALETTE0.as_slise(),
+    let palette = match palette_id {
+        0 => PALETTE0.as_slice(),    // &[Color]
+        1 => PALETTE1.as_slice(),    // &[Color]
+        2 => PALETTE2.as_slice(),    // &[Color]
+        _ => PALETTE0.as_slice(),    // fallback
     };
-        
+
     let n = palette.len() as f64;
     let normalized = iterations / max_iterations;
     let scaled = normalized * (n - 1.0);

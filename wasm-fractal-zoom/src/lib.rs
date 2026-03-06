@@ -40,13 +40,6 @@ pub fn get_color(iterations: f64, max_iterations: f64, palette_id: u32) -> (u8, 
         return (0, 0, 0);
     }
 
-    let palette: &[Color] = match palette_id {
-        0 => &PALETTE0,
-        1 => &PALETTE1,
-        2 => &PALETTE2,
-        _ => &PALETTE0,
-    };
-
     let palette = match palette_id{
         0 => PALETTE0.as_slise(),
         1 => PALETTE1.as_slise(),
@@ -54,8 +47,6 @@ pub fn get_color(iterations: f64, max_iterations: f64, palette_id: u32) -> (u8, 
         _ => PALETTE0.as_slise(),
     };
         
-    
-
     let n = palette.len() as f64;
     let normalized = iterations / max_iterations;
     let scaled = normalized * (n - 1.0);
